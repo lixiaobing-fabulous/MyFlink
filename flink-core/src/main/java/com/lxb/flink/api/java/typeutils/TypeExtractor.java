@@ -2,17 +2,17 @@ package com.lxb.flink.api.java.typeutils;
 
 import com.lxb.flink.api.common.functions.FlatMapFunction;
 import com.lxb.flink.api.common.functions.Function;
+import com.lxb.flink.api.common.typeinfo.TypeHint;
 import com.lxb.flink.api.common.typeinfo.TypeInformation;
 import com.lxb.flink.utl.Preconditions;
 
-import java.lang.invoke.SerializedLambda;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
-import java.util.List;
 
 public class TypeExtractor {
     public static TypeInformation<Object> getForClass(Class<Object> objectClass) {
+        return null;
+    }
+
+    public static <T> TypeInformation<T> createTypeInfo(Class<T> type) {
         return null;
     }
 
@@ -99,4 +99,7 @@ public class TypeExtractor {
     }
 
 
+    public static <T> TypeInformation<T> createTypeInfo(TypeHint<T> tTypeHint, Class<TypeHint> typeHintClass, Class<? extends TypeHint> aClass, int i) {
+        return null;
+    }
 }

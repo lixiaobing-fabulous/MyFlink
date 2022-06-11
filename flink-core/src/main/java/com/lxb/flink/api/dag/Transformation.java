@@ -2,7 +2,7 @@ package com.lxb.flink.api.dag;
 
 import com.lxb.flink.api.common.functions.InvalidTypesException;
 import com.lxb.flink.api.common.typeinfo.TypeInformation;
-import com.lxb.flink.api.common.typeuitils.MissingTypeInfo;
+import com.lxb.flink.api.java.typeutils.MissingTypeInfo;
 
 public abstract class Transformation<T> {
     protected final int    id;

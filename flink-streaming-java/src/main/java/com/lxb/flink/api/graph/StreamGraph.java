@@ -9,7 +9,7 @@ import com.lxb.flink.api.java.tupple.Tuple3;
 import com.lxb.flink.api.operators.StreamOperatorFactory;
 import com.lxb.flink.api.transformations.ShuffleMode;
 import com.lxb.flink.api.common.typeinfo.TypeInformation;
-import com.lxb.flink.api.common.typeuitils.MissingTypeInfo;
+import com.lxb.flink.api.java.typeutils.MissingTypeInfo;
 import com.lxb.flink.api.common.typeuitils.TypeSerializer;
 import com.lxb.flink.runtime.jobgraph.ScheduleMode;
 import com.lxb.flink.runtime.jobgraph.tasks.AbstractInvokable;

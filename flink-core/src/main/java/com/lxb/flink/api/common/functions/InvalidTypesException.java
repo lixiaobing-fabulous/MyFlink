@@ -1,6 +1,6 @@
 package com.lxb.flink.api.common.functions;
 
-import com.lxb.flink.api.common.typeuitils.InvalidProgramException;
+import com.lxb.flink.api.common.InvalidProgramException;
 
 public class InvalidTypesException extends InvalidProgramException {
 
