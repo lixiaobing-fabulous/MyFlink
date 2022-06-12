@@ -8,4 +8,10 @@ public class NormalizedKeyUtil {
 
     public static void putCharNormalizedKey(Character value, MemorySegment target, int offset, int numBytes) {
     }
+
+    public static void putIntNormalizedKey(Integer iValue, MemorySegment target, int offset, int numBytes) {
+    }
+
+    public static void putLongNormalizedKey(Long lValue, MemorySegment target, int offset, int numBytes) {
+    }
 }
