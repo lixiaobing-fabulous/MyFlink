@@ -1,6 +1,5 @@
 package com.lxb.flink.api.environment;
 
-import com.lxb.flink.api.common.ExecutionConfig;
 import com.lxb.flink.api.common.JobExecutionResult;
 import com.lxb.flink.api.dag.Transformation;
 import com.lxb.flink.api.datastream.DataStreamSource;

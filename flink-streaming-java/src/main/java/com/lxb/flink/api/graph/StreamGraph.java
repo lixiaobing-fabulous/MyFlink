@@ -37,8 +37,8 @@ public class StreamGraph implements Pipeline {
     private StateBackend           stateBackend;
 
     private       Map<Integer, StreamNode>                                         streamNodes;
-    private final ExecutionConfig                                                  executionConfig;
-    private       Map<Integer, Tuple2<Integer, List<String>>>                      virtualSelectNodes;
+    private final ExecutionConfig                             executionConfig;
+    private       Map<Integer, Tuple2<Integer, List<String>>> virtualSelectNodes;
     private       Map<Integer, Tuple2<Integer, OutputTag>>                         virtualSideOutputNodes;
     private       Map<Integer, Tuple3<Integer, StreamPartitioner<?>, ShuffleMode>> virtualPartitionNodes;
     protected     Map<Integer, String>                                             vertexIDtoBrokerID;
