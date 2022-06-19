@@ -1,5 +1,6 @@
 package com.lxb.flink.api.environment;
 
+import com.lxb.flink.api.common.ExecutionConfig;
 import com.lxb.flink.api.common.JobExecutionResult;
 import com.lxb.flink.api.dag.Transformation;
 import com.lxb.flink.api.datastream.DataStreamSource;
@@ -20,8 +21,8 @@ public class StreamExecutionEnvironment {
     public static final  String DEFAULT_JOB_NAME               = "Flink Streaming Job";
     private static final long   DEFAULT_NETWORK_BUFFER_TIMEOUT = 100L;
 
-    private final ExecutionConfig config            = new ExecutionConfig();
-    private       long            bufferTimeout     = DEFAULT_NETWORK_BUFFER_TIMEOUT;
+    private final ExecutionConfig config        = new ExecutionConfig();
+    private       long            bufferTimeout = DEFAULT_NETWORK_BUFFER_TIMEOUT;
     protected     boolean         isChainingEnabled = true;
 
     protected final List<Transformation<?>> transformations = new ArrayList<>();
