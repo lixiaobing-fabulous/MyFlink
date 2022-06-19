@@ -18,6 +18,7 @@
 
 package com.lxb.flink.api.java.typeutils;
 
+import com.lxb.flink.annotation.Internal;
 import com.lxb.flink.annotation.Public;
 import com.lxb.flink.annotation.PublicEvolving;
 import com.lxb.flink.api.common.functions.FlatMapFunction;
@@ -25,11 +26,15 @@ import com.lxb.flink.api.common.functions.Function;
 import com.lxb.flink.api.common.functions.InvalidTypesException;
 import com.lxb.flink.api.common.functions.MapFunction;
 import com.lxb.flink.api.common.functions.Partitioner;
+import com.lxb.flink.api.common.typeinfo.BasicTypeInfo;
+import com.lxb.flink.api.common.typeinfo.TypeInfo;
 import com.lxb.flink.api.common.typeinfo.TypeInfoFactory;
 import com.lxb.flink.api.common.typeinfo.TypeInformation;
 import com.lxb.flink.api.java.functions.KeySelector;
 import com.lxb.flink.api.java.tupple.Tuple;
 import com.lxb.flink.api.java.tupple.Tuple0;
+import com.lxb.flink.types.Value;
+import com.lxb.flink.utl.InstantiationUtil;
 import com.lxb.flink.utl.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +56,9 @@ import java.util.List;
 import java.util.Map;
 
 import static com.lxb.flink.api.java.typeutils.TypeExtractionUtils.checkAndExtractLambda;
+import static com.lxb.flink.api.java.typeutils.TypeExtractionUtils.getTypeHierarchy;
 import static com.lxb.flink.api.java.typeutils.TypeExtractionUtils.isClassType;
+import static com.lxb.flink.api.java.typeutils.TypeExtractionUtils.sameTypeVars;
 import static com.lxb.flink.api.java.typeutils.TypeExtractionUtils.typeToClass;
 import static com.lxb.flink.utl.Preconditions.checkNotNull;
 
