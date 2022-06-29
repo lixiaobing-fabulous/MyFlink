@@ -7,6 +7,12 @@ import java.io.Serializable;
 
 public interface StreamOperatorFactory<OUT> extends Serializable {
 
+    <T extends StreamOperator<OUT>> T createStreamOperator(StreamOperatorParameters<OUT> parameters);
+
+    void setChainingStrategy(ChainingStrategy strategy);
+
+    ChainingStrategy getChainingStrategy();
+
     default boolean isStreamSource() {
         return false;
     }
@@ -15,8 +21,15 @@ public interface StreamOperatorFactory<OUT> extends Serializable {
         return false;
     }
 
-    default void setOutputType(TypeInformation<OUT> type, ExecutionConfig executionConfig) {}
+    default void setOutputType(TypeInformation<OUT> type, ExecutionConfig executionConfig) {
+    }
 
-    void setChainingStrategy(ChainingStrategy strategy);
+    default boolean isInputTypeConfigurable() {
+        return false;
+    }
 
+    default void setInputType(TypeInformation<?> type, ExecutionConfig executionConfig) {
+    }
+
+    Class<? extends StreamOperator> getStreamOperatorClass(ClassLoader classLoader);
 }
