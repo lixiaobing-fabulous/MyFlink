@@ -17,25 +17,20 @@
 
 package com.lxb.flink.runtime.io;
 
-import static org.apache.flink.util.Preconditions.checkNotNull;
+import static com.lxb.flink.utl.Preconditions.checkNotNull;
 
 import java.io.IOException;
 
-import org.apache.flink.annotation.Internal;
-import org.apache.flink.api.common.typeutils.TypeSerializer;
-import org.apache.flink.runtime.io.network.api.writer.RecordWriter;
-import org.apache.flink.runtime.plugable.SerializationDelegate;
-import org.apache.flink.streaming.api.operators.Output;
-import org.apache.flink.streaming.api.watermark.Watermark;
-import org.apache.flink.streaming.runtime.metrics.WatermarkGauge;
-import org.apache.flink.streaming.runtime.streamrecord.LatencyMarker;
-import org.apache.flink.streaming.runtime.streamrecord.StreamElement;
-import org.apache.flink.streaming.runtime.streamrecord.StreamElementSerializer;
-import org.apache.flink.streaming.runtime.streamrecord.StreamRecord;
-import org.apache.flink.streaming.runtime.streamstatus.StreamStatus;
-import org.apache.flink.streaming.runtime.streamstatus.StreamStatusProvider;
-import org.apache.flink.streaming.runtime.tasks.OperatorChain;
-import org.apache.flink.util.OutputTag;
+import com.lxb.flink.annotation.Internal;
+import com.lxb.flink.api.common.typeuitils.TypeSerializer;
+import com.lxb.flink.api.watermark.Watermark;
+import com.lxb.flink.runtime.io.network.api.writer.RecordWriter;
+import com.lxb.flink.runtime.metrics.WatermarkGauge;
+import com.lxb.flink.runtime.streamrecord.LatencyMarker;
+import com.lxb.flink.runtime.streamrecord.StreamElementSerializer;
+import com.lxb.flink.runtime.streamstatus.StreamStatus;
+import com.lxb.flink.runtime.streamstatus.StreamStatusProvider;
+import com.lxb.flink.utl.OutputTag;
 
 import com.lxb.flink.runtime.plugable.SerializationDelegate;
 import com.lxb.flink.runtime.streamrecord.StreamElement;
@@ -43,7 +38,6 @@ import com.lxb.flink.runtime.streamrecord.StreamRecord;
 import com.lxb.flink.runtime.tasks.OperatorChain;
 
 /**
- * Implementation of {@link Output} that sends data using a {@link RecordWriter}.
  */
 @Internal
 public class RecordWriterOutput<OUT> implements OperatorChain.WatermarkGaugeExposingOutput<StreamRecord<OUT>> {

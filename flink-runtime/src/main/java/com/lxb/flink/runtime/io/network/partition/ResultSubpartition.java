@@ -16,16 +16,19 @@
  * limitations under the License.
  */
 
-package com.lxb.flink.runtime.io.partition;
+package com.lxb.flink.runtime.io.network.partition;
 
 
 import java.io.IOException;
 import java.util.List;
 
+import com.lxb.flink.annotation.VisibleForTesting;
 import com.lxb.flink.runtime.checkpoint.channel.ChannelStateReader;
 import com.lxb.flink.runtime.checkpoint.channel.ResultSubpartitionInfo;
 import com.lxb.flink.runtime.io.network.buffer.Buffer;
 import com.lxb.flink.runtime.io.network.buffer.BufferConsumer;
+
+import static com.lxb.flink.utl.Preconditions.checkNotNull;
 
 
 /**
@@ -57,7 +60,6 @@ public abstract class ResultSubpartition {
 	}
 
 	/**
-	 * Notifies the parent partition about a consumed {@link ResultSubpartitionView}.
 	 */
 	protected void onConsumedSubpartition() {
 		parent.onConsumedSubpartition(getSubPartitionIndex());

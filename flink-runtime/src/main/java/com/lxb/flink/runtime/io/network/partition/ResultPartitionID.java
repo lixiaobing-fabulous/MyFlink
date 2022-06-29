@@ -16,19 +16,19 @@
  * limitations under the License.
  */
 
-package com.lxb.flink.runtime.io.partition;
-
-import static com.lxb.flink.utl.Preconditions.checkNotNull;
-
-import java.io.Serializable;
-
+package com.lxb.flink.runtime.io.network.partition;
 
 import com.lxb.flink.annotation.VisibleForTesting;
 import com.lxb.flink.runtime.executiongraph.ExecutionAttemptID;
 import com.lxb.flink.runtime.jobgraph.IntermediateResultPartitionID;
 
+import java.io.Serializable;
+
+import static com.lxb.flink.utl.Preconditions.checkNotNull;
+
 /**
  *
+ * <p>In failure cases the {@link IntermediateResultPartitionID} is not enough to uniquely
  * identify a result partition. It needs to be associated with the producing task as well to ensure
  * correct tracking of failed/restarted tasks.
  */

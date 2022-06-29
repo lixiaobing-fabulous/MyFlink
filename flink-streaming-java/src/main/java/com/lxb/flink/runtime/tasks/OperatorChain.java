@@ -1,5 +1,6 @@
 package com.lxb.flink.runtime.tasks;
 
+import static com.lxb.flink.utl.Preconditions.checkState;
 import static org.apache.flink.util.Preconditions.checkState;
 
 import java.io.IOException;
@@ -12,6 +13,20 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.lxb.flink.api.graph.StreamConfig;
+import com.lxb.flink.api.graph.StreamEdge;
+import com.lxb.flink.api.java.tupple.Tuple2;
+import com.lxb.flink.api.operators.StreamOperatorFactory;
+import com.lxb.flink.api.operators.StreamTaskStateInitializer;
+import com.lxb.flink.runtime.io.RecordWriterOutput;
+import com.lxb.flink.runtime.jobgraph.OperatorID;
+import com.lxb.flink.runtime.operators.coordination.OperatorEvent;
+import com.lxb.flink.runtime.operators.coordination.OperatorEventDispatcher;
+import com.lxb.flink.runtime.plugable.SerializationDelegate;
+import com.lxb.flink.runtime.streamrecord.StreamRecord;
+import com.lxb.flink.runtime.streamstatus.StreamStatus;
+import com.lxb.flink.utl.FlinkException;
+import com.lxb.flink.utl.SerializedValue;
 import org.apache.flink.annotation.Internal;
 import org.apache.flink.api.common.typeutils.TypeSerializer;
 import org.apache.flink.api.java.tuple.Tuple2;
@@ -78,8 +93,8 @@ public class OperatorChain<OUT, OP extends StreamOperator<OUT>> implements Strea
 				containingTask.getEnvironment().getUserClassLoader(),
 				containingTask.getEnvironment().getOperatorCoordinatorEventGateway());
 
-		final ClassLoader userCodeClassloader = containingTask.getUserCodeClassLoader();
-		final StreamConfig configuration = containingTask.getConfiguration();
+		final ClassLoader  userCodeClassloader = containingTask.getUserCodeClassLoader();
+		final StreamConfig configuration       = containingTask.getConfiguration();
 
 		StreamOperatorFactory<OUT> operatorFactory = configuration.getStreamOperatorFactory(userCodeClassloader);
 
@@ -88,7 +103,7 @@ public class OperatorChain<OUT, OP extends StreamOperator<OUT>> implements Strea
 
 		// create the final output stream writers
 		// we iterate through all the out edges from this job vertex and create a stream output
-		List<StreamEdge> outEdgesInOrder = configuration.getOutEdgesInOrder(userCodeClassloader);
+		List<StreamEdge>                       outEdgesInOrder = configuration.getOutEdgesInOrder(userCodeClassloader);
 		Map<StreamEdge, RecordWriterOutput<?>> streamOutputMap = new HashMap<>(outEdgesInOrder.size());
 		this.streamOutputs = new RecordWriterOutput<?>[outEdgesInOrder.size()];
 

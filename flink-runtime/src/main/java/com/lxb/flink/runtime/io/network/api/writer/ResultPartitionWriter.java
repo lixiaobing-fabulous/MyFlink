@@ -27,7 +27,8 @@ import com.lxb.flink.runtime.checkpoint.channel.ChannelStateReader;
 import com.lxb.flink.runtime.io.AvailabilityProvider;
 import com.lxb.flink.runtime.io.network.buffer.BufferBuilder;
 import com.lxb.flink.runtime.io.network.buffer.BufferConsumer;
-import com.lxb.flink.runtime.io.partition.ResultPartitionID;
+import com.lxb.flink.runtime.io.network.partition.ResultPartitionID;
+import com.lxb.flink.runtime.io.network.partition.ResultSubpartition;
 
 /**
  * A buffer-oriented runtime result writer API for producing results.
