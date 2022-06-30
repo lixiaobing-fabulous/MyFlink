@@ -1,7 +1,6 @@
 package com.lxb.flink.runtime.tasks;
 
 import static com.lxb.flink.utl.Preconditions.checkState;
-import static org.apache.flink.util.Preconditions.checkState;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,47 +12,36 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.lxb.flink.api.collector.selector.OutputSelector;
+import com.lxb.flink.api.common.typeuitils.TypeSerializer;
 import com.lxb.flink.api.graph.StreamConfig;
 import com.lxb.flink.api.graph.StreamEdge;
 import com.lxb.flink.api.java.tupple.Tuple2;
+import com.lxb.flink.api.operators.OneInputStreamOperator;
+import com.lxb.flink.api.operators.Output;
 import com.lxb.flink.api.operators.StreamOperatorFactory;
+import com.lxb.flink.api.operators.StreamOperatorFactoryUtil;
 import com.lxb.flink.api.operators.StreamTaskStateInitializer;
+import com.lxb.flink.api.watermark.Watermark;
+import com.lxb.flink.runtime.execution.Environment;
 import com.lxb.flink.runtime.io.RecordWriterOutput;
+import com.lxb.flink.runtime.io.network.api.writer.RecordWriter;
+import com.lxb.flink.runtime.io.network.api.writer.RecordWriterDelegate;
 import com.lxb.flink.runtime.jobgraph.OperatorID;
+import com.lxb.flink.runtime.metrics.WatermarkGauge;
 import com.lxb.flink.runtime.operators.coordination.OperatorEvent;
 import com.lxb.flink.runtime.operators.coordination.OperatorEventDispatcher;
 import com.lxb.flink.runtime.plugable.SerializationDelegate;
+import com.lxb.flink.runtime.streamrecord.LatencyMarker;
 import com.lxb.flink.runtime.streamrecord.StreamRecord;
 import com.lxb.flink.runtime.streamstatus.StreamStatus;
+import com.lxb.flink.runtime.streamstatus.StreamStatusProvider;
+import com.lxb.flink.runtime.tasks.mailbox.MailboxExecutorFactory;
 import com.lxb.flink.utl.FlinkException;
+import com.lxb.flink.utl.OutputTag;
 import com.lxb.flink.utl.SerializedValue;
-import org.apache.flink.annotation.Internal;
-import org.apache.flink.api.common.typeutils.TypeSerializer;
-import org.apache.flink.api.java.tuple.Tuple2;
-import org.apache.flink.runtime.execution.Environment;
-import org.apache.flink.runtime.io.network.api.writer.RecordWriter;
-import org.apache.flink.runtime.io.network.api.writer.RecordWriterDelegate;
-import org.apache.flink.runtime.jobgraph.OperatorID;
-import org.apache.flink.runtime.operators.coordination.OperatorEvent;
-import org.apache.flink.runtime.operators.coordination.OperatorEventDispatcher;
-import org.apache.flink.runtime.plugable.SerializationDelegate;
-import org.apache.flink.streaming.api.collector.selector.OutputSelector;
-import org.apache.flink.streaming.api.graph.StreamConfig;
-import org.apache.flink.streaming.api.graph.StreamEdge;
-import org.apache.flink.streaming.api.operators.*;
-import org.apache.flink.streaming.api.watermark.Watermark;
-import org.apache.flink.streaming.runtime.io.RecordWriterOutput;
-import org.apache.flink.streaming.runtime.metrics.WatermarkGauge;
-import org.apache.flink.streaming.runtime.streamrecord.LatencyMarker;
-import org.apache.flink.streaming.runtime.streamrecord.StreamRecord;
-import org.apache.flink.streaming.runtime.streamstatus.StreamStatus;
-import org.apache.flink.streaming.runtime.streamstatus.StreamStatusMaintainer;
-import org.apache.flink.streaming.runtime.streamstatus.StreamStatusProvider;
-import org.apache.flink.streaming.runtime.tasks.mailbox.MailboxExecutorFactory;
-import org.apache.flink.util.FlinkException;
-import org.apache.flink.util.OutputTag;
-import org.apache.flink.util.SerializedValue;
-import org.apache.flink.util.XORShiftRandom;
+
+import com.lxb.flink.utl.XORShiftRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -457,7 +445,7 @@ public class OperatorChain<OUT, OP extends StreamOperator<OUT>> implements Strea
 	static class ChainingOutput<T> implements WatermarkGaugeExposingOutput<StreamRecord<T>> {
 
 		protected final OneInputStreamOperator<T, ?> operator;
-		protected final WatermarkGauge watermarkGauge = new WatermarkGauge();
+		protected final WatermarkGauge               watermarkGauge = new WatermarkGauge();
 
 		protected final StreamStatusProvider streamStatusProvider;
 

@@ -26,6 +26,7 @@ import com.lxb.flink.configuration.Configuration;
 import com.lxb.flink.runtime.executiongraph.ExecutionAttemptID;
 import com.lxb.flink.runtime.jobgraph.JobVertexID;
 import com.lxb.flink.runtime.jobgraph.tasks.InputSplitProvider;
+import com.lxb.flink.runtime.jobgraph.tasks.TaskOperatorEventGateway;
 import com.lxb.flink.runtime.taskmanager.TaskManagerRuntimeInfo;
 
 /**
@@ -88,7 +89,7 @@ public interface Environment {
 //	/**
 //	 * Gets the gateway through which operators can send events to the operator coordinators.
 //	 */
-//	TaskOperatorEventGateway getOperatorCoordinatorEventGateway();
+	TaskOperatorEventGateway getOperatorCoordinatorEventGateway();
 //
 //	/**
 //	 * Returns the current {@link MemoryManager}.
